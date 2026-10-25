@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>거제사랑상품권 가맹점 찾기</title>
+  <meta name="description" content="거제사랑상품권(지류·제로페이)을 쓸 수 있는 가맹점을 상호, 업종, 지역, 지도로 찾아보세요.">
+  <!-- 링크 공유 미리보기 (카카오톡·문자·SNS): 대표 이미지는 우리 아이콘으로 -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="거제사랑상품권 가맹점 찾기">
+  <meta property="og:url" content="https://rogertinum.github.io/Yaho-geosasang/">
+  <meta property="og:title" content="거제사랑상품권 가맹점 찾기">
+  <meta property="og:description" content="상호·업종·지역 검색과 지도로 거제사랑상품권(지류·제로페이) 가맹점을 찾아보세요.">
+  <meta property="og:image" content="https://rogertinum.github.io/Yaho-geosasang/og-image.png?v=2">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="거제사랑상품권 가맹점 찾기">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://rogertinum.github.io/Yaho-geosasang/og-image.png?v=2">
+  <meta name="theme-color" content="#36318f">
+  <script>
+    // 저장해 둔 화면 모드·글자 크기를 그리기 전에 적용 (깜빡임 방지)
+    try {
+      const p = JSON.parse(localStorage.getItem("geosasang:prefs") || "{}");
+      if (p.theme === "light" || p.theme === "dark") document.documentElement.dataset.theme = p.theme;
+      if (p.fs === "2" || p.fs === "3") document.documentElement.dataset.fs = p.fs;
+    } catch (e) {}
+  </script>
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest?v=2">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="거사상 야호">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.Default.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+  <link rel="stylesheet" href="style.css?v=20261026160355">
+</head>
+<body>
+  <div class="app" data-view="list">
+    <header class="top">
+      <div class="title-row">
+        <h1><a id="home" class="home" href="./" title="처음 화면으로">거제사랑상품권 <span>가맹점 찾기</span></a></h1>
+        <button id="settingsBtn" class="settings-btn" type="button" aria-label="화면 설정" aria-haspopup="dialog" aria-controls="settings">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1.08-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1.08 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
+      </div>
+
+      <dialog class="settings" id="settings" aria-labelledby="settingsTitle">
+        <div class="set-head">
+          <h2 id="settingsTitle">화면 설정</h2>
+          <button id="settingsClose" class="icon-x" type="button" aria-label="설정 닫기">✕</button>
+        </div>
+        <div class="set-row">
+          <span>글자 크기</span>
+          <div class="seg" role="group" aria-label="글자 크기">
+            <button type="button" data-fs="1">보통</button>
+            <button type="button" data-fs="2" class="fs-2">크게</button>
+            <button type="button" data-fs="3" class="fs-3">더 크게</button>
+          </div>
+        </div>
+        <div class="set-row">
+          <span>화면 모드</span>
+          <div class="seg" role="group" aria-label="화면 모드">
+            <button type="button" data-theme="system">시스템</button>
+            <button type="button" data-theme="light">라이트</button>
+            <button type="button" data-theme="dark">다크</button>
+          </div>
+        </div>
+        <p class="set-note">이 기기에만 저장돼요.</p>
+        <p class="set-info">가맹점 목록 <span id="meta">불러오는 중…</span></p>
+        <button id="openGuide" class="guide-link" type="button">📖 사용 방법 다시 보기</button>
+      </dialog>
+
+      <dialog class="settings guide" id="guide" aria-labelledby="guideTitle">
+        <div class="set-head">
+          <h2 id="guideTitle">이렇게 쓰세요</h2>
+          <button class="icon-x" type="button" data-close aria-label="안내 닫기">✕</button>
+        </div>
+        <ol class="guide-steps">
+          <li><b>🔍 검색</b> 상호나 주소로 찾아요.</li>
+          <li><b>🏷️ 업종</b> 편의점·음식점 등을 고르면 브랜드나 종류(치킨·중식…)로 한 번 더 좁힐 수 있어요.</li>
+          <li><b>📍 지역</b> 읍·면·동으로 거를 수 있어요. 고른 칩의 ✕를 누르면 풀려요.</li>
+          <li><b>🧭 내 주변</b> 위치를 허용하면 가까운 순으로 보여주고, 300m~3km 범위로 좁힐 수 있어요.</li>
+          <li><b>🗺️ 지도</b> 목록에서 가게를 누르면 지도에서 그 가게만 보여줘요. 지도를 움직인 뒤 ‘이 화면 가게 목록’을 누르면 보이는 가게만 모아 봐요.</li>
+          <li><b>↩️ 뒤로가기</b> 휴대폰 뒤로가기를 누르면 바로 전 단계로 돌아가요.</li>
+          <li><b><span class="kind-paper"><b>지류</b><i></i></span> <img class="kind-zp" src="img/zeropay-square.png" alt="제로페이"> 가맹점</b> 지류(종이) 상품권 가맹점과 제로페이(모바일) 가맹점을 함께 보여요. 검색칸 옆 <b>제로페이</b>를 끄면 지류 가맹점만 남아요.</li>
+          <li><b>📞 가게 정보</b> 전화번호는 제로페이에 등록된 번호예요. 영업시간은 네이버지도·카카오맵 버튼으로 확인해요.</li>
+          <li><b>⚙️ 설정</b> 글자 크기와 다크 모드를 바꿀 수 있어요. 제목을 누르면 처음 화면으로 가요.</li>
+        </ol>
+        <button class="guide-start" type="button" data-close>시작하기</button>
+      </dialog>
+
+      <div class="search-row">
+        <div class="search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+          <input id="q" type="search" placeholder="상호나 주소로 검색" autocomplete="off" enterkeyhint="search">
+          <button id="clear" class="icon-btn" aria-label="검색어 지우기" hidden>×</button>
+        </div>
+        <button id="zpToggle" class="zp-toggle" type="button" aria-pressed="true" title="끄면 지류 가맹점만 보여요"><img src="img/zeropay-square.png" alt="">제로페이<span class="sw"></span></button>
+      </div>
+
+      <div class="filter-row">
+        <select id="area" aria-label="소재지(읍면동) 선택"><option value="">📍 전체 지역 (읍·면·동)</option></select>
+        <button id="areaPicked" class="area-picked" type="button" title="지역 선택 풀기" hidden></button>
+        <button id="near" class="pill-btn" type="button">🧭 내 주변</button>
+      </div>
+      <div class="chips" id="radiusChips" role="group" aria-label="내 주변 거리" hidden></div>
+
+      <div class="chips" id="chips" role="group" aria-label="업종"></div>
+      <button id="chipToggle" class="chip-toggle" type="button" hidden></button>
+      <div class="chips" id="brandChips" role="group" aria-label="브랜드 (여러 개 선택 가능)" hidden></div>
+      <div class="chips" id="subChips" role="group" aria-label="그 외 세부 종류" hidden></div>
+    </header>
+
+    <div class="bar">
+      <div class="bar-left">
+        <button id="showTop" class="show-top" type="button" aria-label="검색·필터 펼치기">🔍 검색·필터</button>
+        <span id="count" aria-live="polite"></span>
+      </div>
+      <div class="toggle" role="tablist">
+        <button role="tab" data-v="list" aria-selected="true">목록</button>
+        <button role="tab" data-v="map" aria-selected="false">지도</button>
+      </div>
+    </div>
+
+    <main class="body">
+      <section class="list-pane">
+        <ul id="list"></ul>
+        <div id="more" class="more"></div>
+        <footer class="foot">
+          비공식 안내 페이지예요. 가맹점은 수시로 바뀌니 결제 전에 매장에 확인해 주세요.<br>
+          업종은 상호를 보고 자동으로 분류해서 틀릴 수 있어요. 지도 © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> 기여자 · <a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a>
+        </footer>
+      </section>
+      <section class="map-pane"><div id="map"></div><button id="viewListBtn" class="map-list-btn" type="button">📋 이 화면 가게 목록</button></section>
+      <a class="made-by" href="https://github.com/rogertinum" target="_blank" rel="noopener" title="만든 사람의 GitHub">
+        <img src="https://github.com/rogertinum.png?size=48" alt="" width="18" height="18" onerror="this.remove()">
+        <span>Made by <b>rogertinum</b></span>
+      </a>
+      <div id="toast" class="toast" role="status" aria-live="polite" hidden>
+        <span id="toastMsg"></span>
+        <button id="toastAction" class="toast-btn" type="button" hidden></button>
+        <button id="toastClose" class="toast-x" type="button" aria-label="안내 닫기">✕</button>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.min.js"></script>
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script src="https://unpkg.com/@maplibre/maplibre-gl-leaflet@0.0.22/leaflet-maplibre-gl.js"></script>
+  <script src="app.js?v=20261026160355"></script>
+</body>
+</html>

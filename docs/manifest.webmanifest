@@ -1,0 +1,32 @@
+{
+  "id": "./?app=yaho",
+  "name": "거사상 야호",
+  "short_name": "거사상 야호",
+  "description": "거제사랑상품권 가맹점을 상호·업종·지역·내 주변으로 찾아보세요.",
+  "lang": "ko",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f6fa",
+  "theme_color": "#36318f",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
